@@ -66,6 +66,9 @@ var Microsoft;
                     });
                 };
                 MicrophoneRecognitionClient.prototype.endMicAndRecognition = function () {
+                    for (var i = 0; i < this._sr.audioStream.getAudioTracks().length; i++) {
+                      this._sr.audioStream.getAudioTracks()[i].stop()
+                    }
                     this._sr.stop();
                 };
                 return MicrophoneRecognitionClient;
@@ -379,6 +382,7 @@ var Bing;
                         _this.context = new AudioContext();
                     }
                     _this.currentSource = _this.context.createMediaStreamSource(stream);
+                    _this.audioStream = stream
                 }, function () {
                     _this.HandleError();
                 });
